@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Touch Gestures Prototype</title>
 
@@ -9,17 +10,23 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'touchgestures/vendors/bootstrap/css/bootstrap.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'touchgestures/css/main.css' %}" />
 
-	<script src="{% static 'touchgestures/vendors/jquery/jquery-3.3.1.min.js' %}"></script>
-	<script src="{% static 'touchgestures/vendors/hammer/hammer.min.js' %}"></script>
-	<script src="{% static 'touchgestures/vendors/hammer/jquery.hammer.js' %}"></script>
+	<script src="{% static 'touchgestures/vendors/jquery/jquery-3.3.1.min.js' %}">
+
+	</script>
+	<script src="{% static 'touchgestures/vendors/hammer/hammer.min.js' %}">
+
+	</script>
+	<script src="{% static 'touchgestures/vendors/hammer/jquery.hammer.js' %}">
+
+	</script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="viewport" content="width=device-width, user-scalable=no" />
 
 	<style type="text/css">
 		body {
-			margin:0;
-			padding:0;
+			margin: 0;
+			padding: 0;
 		}
 
 		.box-container {
@@ -83,9 +90,55 @@
 		</div>
 	</div>
 	<script>
+		// your solution here
     
-	  // your solution here
+    // var turnyTurn = document.getElementById('rotate-box');
+    // var hamTurn = new Hammer(turnyTurn);
+    // hamTurn.get('rotate').set({enable:true});
+    // hamTurn.on("rotate", function() {
+    //     turnyTurn.style.backgroundColor = 'red' ; 
+    // });
 
-  </script>
+    var rotyRot = document.getElementById('rotate-box');
+    var mc = new Hammer.Manager(rotyRot);
+    mc.add( new Hammer.Rotate({threshold: 300}));
+    mc.on("rotate", function(ev) {
+        rotyRot.style.backgroundColor = 'red' ; 
+    });
+    
+    var pinchyPinch = document.getElementById('pinch-box');
+    var hamPinch = new Hammer(pinchyPinch);
+    hamPinch.get('pinch').set({enable:true});
+    hamPinch.on("pinch", function() {
+        pinchyPinch.style.backgroundColor = 'orange' ; 
+    });
+
+    var pressyPress = document.getElementById('press-box');
+    var hamPress = new Hammer(pressyPress);
+    hamPress.on("press", function() {
+        pressyPress.style.backgroundColor = 'yellow' ; 
+    });
+
+    var pannyPan = document.getElementById('pan-box');
+    var hamPan = new Hammer(pannyPan);
+    hamPan.on("pan", function() {
+        pannyPan.style.backgroundColor = 'green' ; 
+    });
+
+    var tappyTap = document.getElementById('tap-box');
+    var hamTap = new Hammer(tappyTap);
+    hamTap.on("tap", function() {
+        tappyTap.style.backgroundColor = 'purple' ; 
+    });
+
+    var swipySwipe = document.getElementById('swipe-box');
+    var hamSwipe = new Hammer(swipySwipe);
+    hamSwipe.on("swipe", function() {
+        swipySwipe.style.backgroundColor = 'grey' ; 
+    });
+
+
+	</script>
 </body>
+
 </html>
