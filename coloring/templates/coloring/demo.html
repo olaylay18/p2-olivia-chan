@@ -79,15 +79,27 @@
           path.fillColor = 'red';
           path.selected = true;
 
-
-  
+          var color1;
+          var color2;
+          var og;
           tool.onMouseDown = function (event) {
             // your code here
-            var mouse_down = Point
+            og = event.point;
           }
   
           tool.onMouseUp = function (event) {
             // your code here
+            var dest = event.point;
+            color1 = cp.history[cp.history.length - 1];
+            color2 = cp.history[cp.history.length - 2];
+            path.fillColor = {
+              gradient:{
+                  stops: [color2, color1]
+              },
+              origin: og,
+              destination: dest
+            }
+            // path.fillColor = color1;
          }
 
 }
