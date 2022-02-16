@@ -68,6 +68,30 @@
 				}
 			}
 
+      function myGradientInteraction(){
+        
+          var tool = new paper.Tool();
+
+          var a = new paper.Point(210,120);
+          var b = new paper.Point(550,520);
+          var rectangle = new paper.Rectangle(a, b);
+          var path = new paper.Path.Rectangle(rectangle);
+          path.fillColor = 'red';
+          path.selected = true;
+
+
+  
+          tool.onMouseDown = function (event) {
+            // your code here
+            var mouse_down = Point
+          }
+  
+          tool.onMouseUp = function (event) {
+            // your code here
+         }
+
+}
+
 			// create a color palette with the given colors
 			function createColorPalette(colors){
 
@@ -115,7 +139,7 @@
 			// Set up the mandala interactivity.
       
       // set to false once you've defined "myGradientInteraction" as a new function (following a similar setup as myCustomInteraction)
-			init(true);
+			init(false);
 		}
 	</script>
 </head>

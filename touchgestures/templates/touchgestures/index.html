@@ -92,13 +92,6 @@
 	<script>
 		// your solution here
     
-    // var turnyTurn = document.getElementById('rotate-box');
-    // var hamTurn = new Hammer(turnyTurn);
-    // hamTurn.get('rotate').set({enable:true});
-    // hamTurn.on("rotate", function() {
-    //     turnyTurn.style.backgroundColor = 'red' ; 
-    // });
-
     var rotyRot = document.getElementById('rotate-box');
     var mc = new Hammer.Manager(rotyRot);
     mc.add( new Hammer.Rotate({threshold: 300}));
