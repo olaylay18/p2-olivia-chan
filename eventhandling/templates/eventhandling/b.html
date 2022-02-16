@@ -40,6 +40,17 @@
 <script type="text/javascript">
 
 	// your solution here
+  var oneSec = setInterval(addBubble, 1000); 
+
+  $(':button').on("click", function(){
+    clearTimeout(oneSec);
+  });
+  
+  function addBubble()
+  {
+    $('.shape-container').append('<div class="p2-circle bg-blue"></div>')
+  }
+
 
 </script>
 </body>
