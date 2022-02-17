@@ -11,7 +11,7 @@
 
 	<style type="text/css">
 		#color-palette {
-			width: 470px;
+			width: 430px;
 			background-color: #f1f1f1;
 			display: flex;
 			flex-wrap: wrap;
@@ -81,27 +81,47 @@
 					});
 					cp.$container.append($swatch);
 				}
+      
         // add customizable palette options x7
         for (var i = 0; i < 7; i++) {
 					var $swatch = $("<div>").css("background", "linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%)")
 									   .addClass("swatch");
 					$swatch.click(function(){
 						// add color to the color palette history
-					  	cp.history.push("blue");
+					  	cp.history.push($(this).css("background-color"));
 					}
           );
           $swatch.dblclick(function(){
+            // gradient box show up
+            var tool = new paper.Tool();
+            var a = new paper.Point(0,00);
+            var b = new paper.Point(200,200);
+            var rectangle = new paper.Rectangle(a, b);
+            var path = new paper.Path.Rectangle(rectangle);
+            path.fillColor = {
+              gradient:{
+                  stops: ['black','maroon','#8b0000','red','#ff8c00','orange','#ffd580','yellow','#90EE90','green','#10A141','#3DE8DA','#249CC9','blue','purple', 'pink']
+              },
+              origin: a,
+              destination: b
+            }
+            // store selected color
+            const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+            var custom_color = rgb2hex('rgb(0,200,0)');
+            tool.onMouseDown = function (event) {
+            var pixel = context.getImageData(event.point.x,event.point.y,1,1).data;
+            custom_color = 'red';
+            }
+
+            // path.selected = true;
+
 						// allow user to select color
-					  	// cp.history.push($(this).css("background-color"));
               
               // change color of this item
-              $(this).css("background","red");
+              
+              $(this).css("background",custom_color);
 					}
           );
-          // $swatch.on("dblclick", function() {
-          //     //code here
-          //     $(this).css("background-color", "gray");
-          // });
 					cp.$container.append($swatch);
 				}
 			}
