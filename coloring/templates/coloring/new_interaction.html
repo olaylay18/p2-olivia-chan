@@ -79,6 +79,11 @@
 						// add color to the color palette history
 					  	cp.history.push($(this).css("background-color"));
 					});
+          $swatch.dblclick(function(){
+            // change to another selected color from "image"
+            $(this).css("background","pink");
+					  	
+					});
 					cp.$container.append($swatch);
 				}
       
@@ -98,43 +103,56 @@
             var b = new paper.Point(200,200);
             var rectangle = new paper.Rectangle(a, b);
             var path = new paper.Path.Rectangle(rectangle);
+            var custom_color;
             path.fillColor = {
               gradient:{
-                  stops: ['black','maroon','#8b0000','red','#ff8c00','orange','#ffd580','yellow','#90EE90','green','#10A141','#3DE8DA','#249CC9','blue','purple', 'pink']
+                  stops: ['black','maroon','#8b0000','red','#ff8c00','orange','#ffd580','yellow','#90EE90','green','#10A141','#3DE8DA','#249CC9','blue','purple', 'pink', 'white']
               },
               origin: a,
               destination: b
             }
+            
             // store selected color
             const rgb2hex = (rgb) => `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
-            var custom_color = rgb2hex('rgb(0,200,0)');
-            tool.onMouseDown = function (event) {
-            var pixel = context.getImageData(event.point.x,event.point.y,1,1).data;
-            custom_color = 'red';
+             var clickedSwatch = $(this);
+
+            path.onMouseDown = function (event) {
+              // select color from gradient
+              var myCanvas = document.getElementById("myCanvas");
+              var context = myCanvas.getContext("2d");
+              var pixel = context.getImageData(event.point.x,event.point.y,1,1).data;
+              console.log(pixel);
+              var r = pixel[0];
+              var g = pixel[1];
+              var b = pixel[2];
+              custom_color = rgb2hex('rgb('+ r + ',' + g + ',' + b + ')'); 
+              clickedSwatch.css("background",custom_color);
             }
 
-            // path.selected = true;
-
-						// allow user to select color
-              
-              // change color of this item
-              
-              $(this).css("background",custom_color);
+            path.onMouseUp = function(event)
+            {
+              path.visible = false;
+            }
 					}
           );
 					cp.$container.append($swatch);
 				}
 			}
 
+      function deleteLater()
+      {
+        return 'purple';
+      }
+
 			// loads a set of colors from a json to create a color palette
 			function getColorsCreatePalette(){
 				cp.$container.html(" ");
 				$.getJSON("{% static 'coloring/vendors/material/material-colors.json' %}", function(colors){
 					var keys = Object.keys(colors);
-					for (var i = keys.length - 1; i >= 0; i--) {
+					for (var i = keys.length - 3; i >= 0; i--) {
             if(i >= 14 || i == 10)
             {
-              cp.options.push(colors[keys[i]][900]);
+              cp.options.push(colors[keys[i]][800]);
             }	
             if(i == 12)
             {
