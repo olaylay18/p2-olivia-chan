@@ -11,7 +11,7 @@
 
 	<style type="text/css">
 		#color-palette {
-			width: 300px;
+			width: 470px;
 			background-color: #f1f1f1;
 			display: flex;
 			flex-wrap: wrap;
@@ -20,11 +20,11 @@
 		}
 
 		.swatch {
-			width: 24px;
-			height: 24px;
+			width: 55px;
+			height: 55px;
 			-moz-border-radius: 12px;
 			-webkit-border-radius: 12px;
-			border-radius: 12px;
+			border-radius: 18px;
 			margin: 3px;
 		}
 
@@ -81,6 +81,29 @@
 					});
 					cp.$container.append($swatch);
 				}
+        // add customizable palette options x7
+        for (var i = 0; i < 7; i++) {
+					var $swatch = $("<div>").css("background", "linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%)")
+									   .addClass("swatch");
+					$swatch.click(function(){
+						// add color to the color palette history
+					  	cp.history.push("blue");
+					}
+          );
+          $swatch.dblclick(function(){
+						// allow user to select color
+					  	// cp.history.push($(this).css("background-color"));
+              
+              // change color of this item
+              $(this).css("background","red");
+					}
+          );
+          // $swatch.on("dblclick", function() {
+          //     //code here
+          //     $(this).css("background-color", "gray");
+          // });
+					cp.$container.append($swatch);
+				}
 			}
 
 			// loads a set of colors from a json to create a color palette
@@ -89,7 +112,14 @@
 				$.getJSON("{% static 'coloring/vendors/material/material-colors.json' %}", function(colors){
 					var keys = Object.keys(colors);
 					for (var i = keys.length - 1; i >= 0; i--) {
-						cp.options.push(colors[keys[i]][500]);
+            if(i >= 14 || i == 10)
+            {
+              cp.options.push(colors[keys[i]][900]);
+            }	
+            if(i == 12)
+            {
+              cp.options.push(colors[keys[i]][50]);
+            }
 					}
 					createColorPalette(cp.options);
 				});
